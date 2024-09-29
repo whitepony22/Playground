@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM SAMPLE</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #eee;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        form {
+            background-color: #222;
+            border: 2px solid #900;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 50px auto;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+        form::before {
+            content: "WARNING";
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #900;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            color: #f00;
+            font-weight: bold;
+            font-size: 18px;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="file"],
+        input[type="url"],
+        input[type="number"],
+        input[type="range"],
+        input[type="search"],
+        input[type="datetime-local"],
+        input[type="date"],
+        input[type="time"],
+        input[type="color"],
+        input[type="week"],
+        input[type="month"],
+        input[type="image"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 2px solid #900;
+            border-radius: 5px;
+            background-color: #333;
+            color: #eee;
+            margin-bottom: 15px;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+        }
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #900;
+        }
+        input[type="submit"],
+        input[type="reset"],
+        input[type="button"] {
+            background-color: #900;
+            border: 2px solid #f00;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+        }
+        input[type="submit"]:hover,
+        input[type="reset"]:hover,
+        input[type="button"]:hover {
+            background-color: #f00;
+            border-color: #900;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+        }
+        h4 {
+            color: #f00;
+            font-size: 16px;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label for="text">Type something yo</label>
+        <input id="text" type="text"><br>
+
+        <label for="password">Tell ur biggest secret~</label>
+        <input id="password" type="password"><br>
+
+        <label for="button">Click for absolutely no reason</label>
+        <input id="button" type="button"><br>
+
+        <label for="checkbox-1">Tick to agree that</label>
+        <input type="checkbox" id="checkbox-1" value="i can hv access to your secrets" checked>
+        <label for="checkbox-1">I agree to access</label><br>
+
+        <input type="checkbox" id="checkbox-2" value="no i can't">
+        <label for="checkbox-2">No, I can't</label><br>
+
+        <input type="checkbox" id="checkbox-3" value="u don't care">
+        <label for="checkbox-3">I don't care</label><br>
+
+        <label for="color">Your fav colour</label>
+        <input id="color" type="color"><br>
+
+        <label for="date">Date the world was burdened by u</label>
+        <input id="date" type="date"><br>
+
+        <label for="time">The time too</label>
+        <input id="time" type="time"><br>
+
+        <label for="week">The blessed week</label>
+        <input id="week" type="week"><br>
+
+        <label for="date-time">The day u wish to undo this burden</label>
+        <input id="date-time" type="datetime-local"><br>
+
+        <label for="email">Your fake email (so it's inbox won't be that inactive)</label>
+        <input id="email" type="email"><br>
+
+        <label for="tel">In case u want some ears</label>
+        <input id="tel" type="tel"><br>
+
+        <label for="file">Your aadhar</label>
+        <input id="file" type="file"><br>
+        <h4>(dw will be used only after the day given before ur fake mail)</h4><br>
+
+        <input type="hidden" id="hidden" value="we lie"><br>
+
+        <label for="image">A pic that defines ur vibe(?)</label>
+        <input id="image" type="image" src="placeholder.png" alt="A pic that defines ur vibe"><br>
+
+        <label for="url">What would u never visit</label>
+        <input id="url" type="url"><br>
+
+        <label for="month">Ur Fav month</label>
+        <input id="month" type="month"><br>
+
+        <label for="number">Your lucky number</label>
+        <input id="number" type="number"><br>
+
+        <label>U what support?</label>
+        <input type="radio" id="radio-equality" name="support" value="Equality">
+        <label for="radio-equality">Equality</label><br>
+
+        <input type="radio" id="radio-male" name="support" value="Male dominion">
+        <label for="radio-male">Male dominion</label><br>
+
+        <input type="radio" id="radio-female" name="support" value="Female dominion">
+        <label for="radio-female">Female dominion</label><br>
+
+        <label for="range">Rate ur craziness</label>
+        <input id="range" type="range"><br>
+
+        <label for="search">Referring point</label>
+        <input id="search" type="search"><br>
+
+        <label for="reset">Chance to reconsider ur life decisions</label>
+        <input id="reset" type="reset"><br>
+
+        <label for="submit">THE END</label>
+        <input id="submit" type="submit"><br>
+    </form>
+</body>
+</html>

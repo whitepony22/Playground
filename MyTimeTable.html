@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>My TimeTable</title>
+        <style>
+            body {
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                background-color: rgb(146, 177, 210);
+                background-image: url("https://i.imghippo.com/files/zF2W31724675735.png");
+                background-size: cover;
+                padding: 20px;
+                margin:0;
+            }
+            h1 {
+                text-align: center;
+                font-size: 4em;
+                margin: 40px;
+                color:rgb(86, 106, 81);
+                text-transform: uppercase;
+            }
+            table {
+                padding: 50px;
+                margin: 0 auto;
+                background-color: snow;
+                border-collapse: collapse;
+                width: 90%;
+                max-width: 1000px;
+                box-shadow: 0 4px 8px black;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+            .verticaltext {
+                padding: 10px;
+                writing-mode: vertical-lr;  
+                transform: rotate(180deg);
+                background-color: rgb(119, 127, 105);
+            }
+            .timerow {
+                padding: 5px;
+                background-color: rgb(112, 132, 77);  
+                font-weight: bold;  
+            }
+            .checkcross {
+                background-color: rgb(64, 74, 47);
+            }
+            .spcolumns {
+                padding: 5px;
+                background-color: rgb(119, 127, 105);
+            }
+            th,td {
+                padding: 15px;
+                border-right: 1px solid white;
+                text-align: center;
+            }
+            th {
+                color:white;
+            }
+            tr:nth-child(2),tr:nth-child(4) {
+                background-color: aliceblue;
+            }
+            td:hover {
+                background-color: rgb(102, 173, 204);
+                color:white;
+                font-size: large;
+            }
+        </style>    
+    </head>
+    <body>
+        <h1>Time Table</h1> 
+        <table>
+            <tr class="timerow">
+                <th class="checkcross">DATE</th>
+                <th>8:30 - 9:35</th>
+                <th>9:35 - 10:40</th>
+                <th class="checkcross"></th>
+                <th>11:00 - 12:00</th>
+                <th>12:00 - 1:00</th>
+                <th class="checkcross"></th>
+                <th>2:00 - 3:00</th>
+                <th class="checkcross"></th>
+                <th>3:15 - 4:15</th>
+            </tr>
+            <tr>
+                <th class="spcolumns">MON</th>
+                <td>MWA</td>
+                <td>ISE</td>
+                <th class="verticaltext"></th>
+                <td>ISE</td>
+                <td>OE</td>
+                <th class="verticaltext"></th>
+                <td>PE-II</td>
+                <th rowspan="3" class="verticaltext">INTERVAL</th>
+                <td>PE-II</td>
+            </tr>
+            <tr>
+                <th class="spcolumns">TUE</th>
+                <td>OE</td>
+                <td>EM LAB</td>
+                <th rowspan="3" class="verticaltext">INTERVAL</th>
+                <td colspan="2">EM LAB</td>
+                <th rowspan="3" class="verticaltext">LUNCH</th>
+                <td>PE-II</td>
+                <td>ISE(T)</td>
+            </tr>
+            <tr>
+                <th class="spcolumns">WED</th>
+                <td colspan="2">PROJ PHASE-I</td>
+                <td>MWA</td>
+                <td>OE</td>
+                <td>PROJ PHASE-I</td>
+                <td>PROJ PHASE-I</td>
+            </tr>
+            <tr>
+                <th class="spcolumns">THUR</th>
+                <td>PE-II</td>
+                <td>MWA</td>
+                <td colspan="2">PROJ PHASE-I</td>
+                <td>MWA(T)</td>
+                <th class="verticaltext"></th>
+                <td>OE</td>
+            </tr>
+            <tr class="timerow">
+                <th class="checkcross"></th>
+                <th colspan="2">8:30 - 10:30</th>
+                <th class="checkcross"></th>
+                <th>10:40 - 11:35</th>
+                <th>11:35 - 12:30</th>
+                <th class="checkcross"></th>
+                <th colspan="3">2:00 - 4:30</th>
+            </tr>
+            <tr>
+                <th class="spcolumns">FRI</th>
+                <td colspan="2">SEMINAR</td>
+                <th class="verticaltext"></th>
+                <td>SEMINAR</td>
+                <td>MENTORING/<br>STU ACT</td>
+                <th class="verticaltext"></th>
+                <td colspan="3">PROJ PHASE-I</td>
+            </tr>
+        </table>
+    </body>
+</html>
+            
+            
+            
+                
