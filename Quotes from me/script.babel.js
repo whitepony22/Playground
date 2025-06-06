@@ -29,6 +29,10 @@ const backgroundPairs = [
   },
 ];
 
+function getRandomIndex(arr) {
+  return Math.floor(Math.random() * arr.length);
+}
+
 function QuoteBox() {
   const [quote, setQuote] = React.useState(quotes[0]);
   const [background, setBackground] = React.useState(backgroundPairs[0]);
