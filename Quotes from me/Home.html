@@ -1,0 +1,82 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Random Quote Machine</title>
+    <!-- Import React, ReactDOM, and Babel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.7/babel.min.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: #f0f0f0;
+      }
+      #quote-box {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 500px;
+      }
+      #text {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      #author {
+        margin-bottom: 1.5rem;
+        font-style: italic;
+      }
+      button {
+        margin-right: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- JSX code below, type="text/babel" is important -->
+    <script type="text/babel">
+      const quotes = [
+        { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
+        { text: "Two things are infinite: the universe and human stupidity.", author: "Albert Einstein" },
+        { text: "So many books, so little time.", author: "Frank Zappa" },
+      ];
+
+      function getRandomQuote() {
+        return quotes[Math.floor(Math.random() * quotes.length)];
+      }
+
+      function QuoteBox() {
+        const [quote, setQuote] = React.useState(getRandomQuote());
+
+        function handleNewQuote() {
+          setQuote(getRandomQuote());
+        }
+
+        return (
+          <div id="quote-box">
+            <div id="text">"{quote.text}"</div>
+            <div id="author">- {quote.author}</div>
+            <button id="new-quote" onClick={handleNewQuote}>New Quote</button>
+            <a
+              id="tweet-quote"
+              href={`https://twitter.com/intent/tweet?text="${quote.text}" - ${quote.author}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Tweet
+            </a>
+          </div>
+        );
+      }
+
+      // ✅ This renders it into the DOM
+      ReactDOM.render(<QuoteBox />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
