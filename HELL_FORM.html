@@ -26,6 +26,7 @@
             overflow: hidden;
         }
         .warning {
+            position: absolute;      /* important to keep */
             top: 30px;
             bottom: 30px;
             left: 50%;
@@ -34,9 +35,14 @@
             font-size: 50px;
             font-weight: bold;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
-            text-align: center;
-            pointer-events: none; /* so it doesn't block clicks on form inputs */
-            user-select: none;    /* optional, prevents text selection */
+        
+            /* Center text vertically and horizontally */
+            display: flex;
+            justify-content: center; /* horizontal centering */
+            align-items: center;     /* vertical centering */
+        
+            pointer-events: none;
+            user-select: none;
         }
         label {
             display: block;
