@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>Pomodoro</title>
+  </head>
+  
+<div id="root"></div>
+<audio id="beep" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" preload="auto"></audio>
+<style>
+  body {
+    margin: 0;
+    background-color: #0a0f1f;
+    color: #d0e1ff;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 1em;
+    letter-spacing: 0.05em;
+  }
+
+  #timer {
+    margin: 2em 0;
+    padding: 1em;
+    border: 3px solid #2a3d66;
+    border-radius: 12px;
+    background: linear-gradient(to right, #101d3f, #16274f);
+    box-shadow: 0 0 12px #223f74;
+  }
+
+  #time-left {
+    font-size: 3em;
+    color: #7ef9ff;
+    text-shadow: 0 0 10px #7ef9ff;
+  }
+
+  button {
+    background: linear-gradient(to bottom, #1f2a44, #101727);
+    color: #d0e1ff;
+    border: 1px solid #446;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  button:hover {
+    background-color: #283c64;
+    box-shadow: 0 0 8px #7ef9ff88;
+  }
+
+  #break-label, #session-label {
+    margin-bottom: 1em;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+
+  #break-label > div, #session-label > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  #start_stop, #reset {
+    margin-top: 1em;
+  }
+</style>
+
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+</html>
