@@ -50,7 +50,7 @@ function App() {
   };
 
   return (
-    <div style={{textAlign:"center", maxWidth:"300px", margin:"2em auto", fontFamily:"sans-serif"}}>
+    <div id="app-container">//style={{textAlign:"center", maxWidth:"300px", margin:"2em auto", fontFamily:"sans-serif"}}>
       <h1>Pomodoro Clock</h1>
       <div>
         <div id="break-label">Break Length
