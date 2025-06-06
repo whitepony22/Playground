@@ -1,4 +1,3 @@
-<!-- CodePen: Use this inside the JS pane (type="text/babel") -->
 const quotes = [
   { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
   { text: "Two things are infinite: the universe and human stupidity.", author: "Albert Einstein" },
