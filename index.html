@@ -52,36 +52,59 @@
     }
 
     .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      background: linear-gradient(to top right, #ffffff, #f8f9fa);
+      border-radius: 16px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
       width: 240px;
-      padding: 1.2rem;
+      padding: 1.5rem;
       text-align: left;
-      transition: transform 0.2s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
     }
-
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent 70%);
+      transform: rotate(45deg);
+      transition: opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .card:hover::before {
+      opacity: 1;
+    }
+    
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
-
+    
     .card h2 {
-      font-size: 1.2rem;
-      margin: 0 0 0.3rem;
-      color: #2c3e50;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: #1a1a1a;
     }
-
+    
     .card p {
-      margin: 0.2rem 0;
-      color: #555;
+      font-size: 0.95rem;
+      margin: 0.3rem 0;
+      color: #444;
     }
-
+    
     .card a {
       text-decoration: none;
-      color: #3498db;
-      font-weight: bold;
+      color: #007bff;
+      font-weight: 600;
       display: inline-block;
-      margin-top: 0.6rem;
+      margin-top: 0.7rem;
     }
 
     .footer {
@@ -103,35 +126,35 @@
         <h2>RSET Admission Form</h2>
         <p>Learning html forms at college, Applying in here gives 100% admission</p>
         <p><strong>Date:</strong> Sep 30, 2024</p>
-        <a href="B_Tech_Admission.html" target="_blank">Open Project →</a>
+        <a href="B_Tech_Admission.html">Open Project →</a>
       </div>
   
       <div class="card">
         <h2>Hell Form</h2>
         <p>Visual experiment with more form options</p>
         <p><strong>Date:</strong> Sep 30, 2024</p>
-        <a href="HELL_FORM.html" target="_blank">Open Project →</a>
+        <a href="HELL_FORM.html">Open Project →</a>
       </div>
   
       <div class="card">
         <h2>My Time Table</h2>
         <p>Aesthetic Timetable of my S7</p>
         <p><strong>Date:</strong> Sep 30, 2024</p>
-        <a href="MyTimeTable.html" target="_blank">Open Project →</a>
+        <a href="MyTimeTable.html">Open Project →</a>
       </div>
   
       <div class="card">
         <h2>Quotes from me</h2>
         <p>Random Quote Generator</p>
         <p><strong>Date:</strong> June 5, 2025</p>
-        <a href="Quotes from me/" target="_blank">Open Project →</a>
+        <a href="Quotes from me/">Open Project →</a>
       </div>
 
       <div class="card">
         <h2>Markdown previewer</h2>
         <p>A previewer of js markdowns, u can try it yourself too!</p>
         <p><strong>Date:</strong> June 5, 2025</p>
-        <a href="Markdown previewer/" target="_blank">Open Project →</a>
+        <a href="Markdown previewer/">Open Project →</a>
       </div>
   
     </div>
