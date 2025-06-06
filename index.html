@@ -172,24 +172,36 @@
     </div>
   </div>
   <script>
-    const pastelColors = [
-      "#f8b195", "#f67280", "#c06c84", "#6c5b7b", "#355c7d", //light pastels
-      "#92a8d1", "#d5f4e6", "#80ced6", "#3b3b98", "#8e44ad", //dark fun colours
-      "#6c3483", "#30336b", "#4834d4", "#574b90"
+    const FunColors = [
+      "#d9a38e", "#f67280", "#c06c84", "#b9b485", "#355c7d", //light pastels
+      "#92a8d1", "#679580", "#54b4be", "#48489e", "#975cb0", //dark fun colours
+      "#6c3483", "#474c99", "#7e75c0", "#4d73ac"
     ];
-  
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-      const color = pastelColors[Math.floor(Math.random() * pastelColors.length)];
-      card.style.backgroundColor = color;
-      card.style.opacity = "0.85";
-      card.addEventListener("mouseenter", () => {
-        card.style.opacity = "1";
-      });
-      card.addEventListener("mouseleave", () => {
+    
+    function styleCards() {
+      document.querySelectorAll('.card').forEach(card => {
+        const color = FunColors[Math.floor(Math.random() * FunColors.length)];
+        card.style.backgroundColor = color;
         card.style.opacity = "0.85";
+    
+        card.addEventListener("mouseenter", () => {
+          card.style.opacity = "1";
+        });
+        card.addEventListener("mouseleave", () => {
+          card.style.opacity = "0.85";
+        });
       });
+    }
+    
+    styleCards();
+    setInterval(styleCards, 5000);
+
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) {
+        styleCards();
+      }
     });
+    
   </script>
 </body>
 </html>
