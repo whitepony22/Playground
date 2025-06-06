@@ -52,17 +52,17 @@
     }
 
     .card {
-      background: linear-gradient(to top right, #ffffff, #f8f9fa);
       border-radius: 16px;
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
       width: 240px;
       padding: 1.5rem;
       text-align: left;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.3s ease;
       position: relative;
       overflow: hidden;
+      backdrop-filter: blur(1px); /* Optional: subtle frosty look */
     }
-    
+/*     
     .card::before {
       content: '';
       position: absolute;
@@ -84,7 +84,7 @@
     .card:hover {
       transform: translateY(-6px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
+    } */
     
     .card h2 {
       font-size: 1.3rem;
@@ -163,6 +163,24 @@
       © 2025 Grace's Web Playground
     </div>
   </div>
-
+  <script>
+    const pastelColors = [
+      "#f8b195", "#f67280", "#c06c84", "#6c5b7b", "#355c7d",
+      "#f7cac9", "#92a8d1", "#f4e1d2", "#d5f4e6", "#80ced6"
+    ];
+  
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      const color = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+      card.style.backgroundColor = color;
+      card.style.opacity = "0.85";
+      card.addEventListener("mouseenter", () => {
+        card.style.opacity = "1";
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.opacity = "0.85";
+      });
+    });
+  </script>
 </body>
 </html>
