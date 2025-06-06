@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Drum Machine</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Garamond', 'Times New Roman', serif;
+      background: #466a8c; /* cerulean */
+      color: #3b2f2f; /* dark muted brown */
+      text-align: center;
+      padding: 50px 20px;
+      user-select: none;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #drum-machine {
+      max-width: 420px;
+      background: #e7dfd5; /* pale parchment */
+      border: 2.5px solid #9b7e4f; /* soft gold/burnished bronze */
+      border-radius: 20px;
+      padding: 40px 35px 50px;
+      box-shadow:
+        0 8px 15px rgba(155, 126, 79, 0.3),
+        inset 0 0 30px #d6c8a8;
+      font-weight: 500;
+      user-select: text;
+    }
+
+    #display {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 18px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 14px 25px;
+      margin-bottom: 40px;
+      color: #5a492f; /* muted olive-brown */
+      background: #f2eadb; /* off-white parchment */
+      border: 2px solid #9b7e4f;
+      border-radius: 14px;
+      box-shadow: inset 1px 2px 5px #cfc5aa;
+      min-height: 30px;
+      user-select: text;
+    }
+
+    .pad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      justify-items: center;
+    }
+
+    .drum-pad {
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(145deg, #a9997f, #7f7054);
+      border: 2.5px solid #5c4e2d;
+      color: #f3ecd8; /* pale cream */
+      font-size: 32px;
+      font-weight: 700;
+      border-radius: 18px;
+      cursor: pointer;
+      box-shadow:
+        5px 5px 10px #5c4e2d,
+        inset -3px -3px 7px #d7cca7,
+        inset 3px 3px 7px #6e6241;
+      font-family: 'Georgia', serif;
+      text-shadow: 1px 1px 2px #3b2f2f;
+      transition: all 0.2s ease;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .drum-pad:hover {
+      background: linear-gradient(145deg, #c3b994, #a1926a);
+      box-shadow:
+        6px 6px 14px #7b6f48,
+        inset -4px -4px 10px #f1e8be,
+        inset 4px 4px 10px #8a7f59;
+      color: #fff9e8;
+      transform: translateY(-2px);
+    }
+
+    .drum-pad:active {
+      background: linear-gradient(145deg, #7f7054, #6d6344);
+      box-shadow: inset 4px 4px 10px #3b2f1f;
+      color: #f3ecd8;
+      transform: translateY(1px);
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React & Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- FCC Test Suite -->
+  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+  <script type="text/babel">
+    const clips = [
+      { key: "Q", id: "Heater-1", src: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3" },
+      { key: "W", id: "Heater-2", src: "https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3" },
+      { key: "E", id: "Heater-3", src: "https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3" },
+      { key: "A", id: "Heater-4", src: "https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3" },
+      { key: "S", id: "Clap", src: "https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3" },
+      { key: "D", id: "Open-HH", src: "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3" },
+      { key: "Z", id: "Kick-n'-Hat", src: "https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3" },
+      { key: "X", id: "Kick", src: "https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3" },
+      { key: "C", id: "Closed-HH", src: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3" }
+    ];
+
+    function DrumMachine() {
+      const [display, setDisplay] = React.useState("");
+
+      const playSound = (key) => {
+        const audio = document.getElementById(key);
+        if (audio) {
+          audio.currentTime = 0;
+          audio.play();
+          const clip = clips.find(c => c.key === key);
+          if (clip) setDisplay(clip.id);
+        }
+      };
+
+      const handleKeyPress = (e) => {
+        const key = e.key.toUpperCase();
+        playSound(key);
+      };
+
+      React.useEffect(() => {
+        document.addEventListener("keydown", handleKeyPress);
+        return () => document.removeEventListener("keydown", handleKeyPress);
+      }, []);
+
+      return (
+        <div id="drum-machine">
+          <div id="display">{display}</div>
+          <div className="pad-grid">
+            {clips.map(({ key, id, src }) => (
+              <button
+                key={key}
+                className="drum-pad"
+                id={id}
+                onClick={() => playSound(key)}
+              >
+                {key}
+                <audio className="clip" id={key} src={src}></audio>
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<DrumMachine />);
+  </script>
+</body>
+</html>
