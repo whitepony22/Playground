@@ -40,43 +40,6 @@
     <div id="root"></div>
 
     <!-- JSX code below, type="text/babel" is important -->
-    <script type="text/babel" src="script.js">
-      const quotes = [
-        { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
-        { text: "Two things are infinite: the universe and human stupidity.", author: "Albert Einstein" },
-        { text: "So many books, so little time.", author: "Frank Zappa" },
-      ];
-
-      function getRandomQuote() {
-        return quotes[Math.floor(Math.random() * quotes.length)];
-      }
-
-      function QuoteBox() {
-        const [quote, setQuote] = React.useState(getRandomQuote());
-
-        function handleNewQuote() {
-          setQuote(getRandomQuote());
-        }
-
-        return (
-          <div id="quote-box">
-            <div id="text">"{quote.text}"</div>
-            <div id="author">- {quote.author}</div>
-            <button id="new-quote" onClick={handleNewQuote}>New Quote</button>
-            <a
-              id="tweet-quote"
-              href={`https://twitter.com/intent/tweet?text="${quote.text}" - ${quote.author}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Tweet
-            </a>
-          </div>
-        );
-      }
-
-      // ✅ This renders it into the DOM
-      ReactDOM.render(<QuoteBox />, document.getElementById('root'));
-    </script>
+    <script type="text/babel" src="script.js"></script>
   </body>
 </html>
