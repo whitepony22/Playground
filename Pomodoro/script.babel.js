@@ -50,7 +50,7 @@ function App() {
   };
 
   return (
-    <div id="app-container">//style={{textAlign:"center", maxWidth:"300px", margin:"2em auto", fontFamily:"sans-serif"}}>
+    <div id="app-container">
       <h1>Pomodoro Clock</h1>
       <div>
         <div id="break-label">Break Length
@@ -81,4 +81,5 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
