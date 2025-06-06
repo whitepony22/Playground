@@ -1,170 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Calculator</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      background: #7d92b2;
+      font-family: 'Garamond', 'Times New Roman', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    
+    #calculator {
+      background: #d9dee5;
+      border: 2px solid #5c6b7c;
+      border-radius: 20px;
+      padding: 30px;
+      width: 340px;
+      box-shadow: 0 8px 18px rgba(71, 86, 105, 0.3), inset 0 0 25px #c5ccd5;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    
+    #display {
+      grid-column: span 4;
+      background: #cfd4db;
+      color: #3b4455;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 2.2em;
+      padding: 18px 25px;
+      border-radius: 14px;
+      border: 2px solid #5c6b7c;
+      box-shadow: inset 1px 2px 4px #b6bcc5;
+      text-align: right;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    
+    button {
+      background: #a6b3c4;
+      border: 2px solid #5c6b7c;
+      color: #ffffff;
+      font-family: 'Georgia', serif;
+      font-size: 1.4em;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      padding: 18px 0;
+      box-shadow: 3px 3px 8px rgba(70, 82, 100, 0.3),
+                  inset -2px -2px 6px #cad2dd,
+                  inset 2px 2px 6px #7f8fa2;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    
+    button:hover {
+      background: #8e9fb3;
+      box-shadow: 4px 4px 10px rgba(62, 73, 89, 0.35),
+                  inset -3px -3px 6px #dde4ec,
+                  inset 3px 3px 6px #7b8ea2;
+      color: #f4f4f4;
+      transform: translateY(-2px);
+    }
+    
+    button:active {
+      background: #6d7a8a;
+      box-shadow: inset 3px 3px 8px #4a5a6d;
+      transform: translateY(1px);
+    }
+    
+    #zero {
+      grid-column: span 2;
+    }
+    
+    #equals {
+      grid-row: span 2;
+    }
+  </style>
 </head>
 
-<div id="root"></div>
+<body>
+  <div id="root"></div>
 
-<style>
-  body {
-    background: #7d92b2;
-    font-family: 'Garamond', 'Times New Roman', serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-
-  #calculator {
-    background: #d9dee5;
-    border: 2px solid #5c6b7c;
-    border-radius: 20px;
-    padding: 30px;
-    width: 340px;
-    box-shadow: 0 8px 18px rgba(71, 86, 105, 0.3), inset 0 0 25px #c5ccd5;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-  }
-
-  #display {
-    grid-column: span 4;
-    background: #cfd4db;
-    color: #3b4455;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 2.2em;
-    padding: 18px 25px;
-    border-radius: 14px;
-    border: 2px solid #5c6b7c;
-    box-shadow: inset 1px 2px 4px #b6bcc5;
-    text-align: right;
-    letter-spacing: 0.06em;
-    margin-bottom: 10px;
-  }
-
-  button {
-    background: #a6b3c4;
-    border: 2px solid #5c6b7c;
-    color: #ffffff;
-    font-family: 'Georgia', serif;
-    font-size: 1.4em;
-    font-weight: 700;
-    border-radius: 12px;
-    cursor: pointer;
-    padding: 18px 0;
-    box-shadow: 3px 3px 8px rgba(70, 82, 100, 0.3),
-                inset -2px -2px 6px #cad2dd,
-                inset 2px 2px 6px #7f8fa2;
-    transition: all 0.2s ease;
-    user-select: none;
-  }
-
-  button:hover {
-    background: #8e9fb3;
-    box-shadow: 4px 4px 10px rgba(62, 73, 89, 0.35),
-                inset -3px -3px 6px #dde4ec,
-                inset 3px 3px 6px #7b8ea2;
-    color: #f4f4f4;
-    transform: translateY(-2px);
-  }
-
-  button:active {
-    background: #6d7a8a;
-    box-shadow: inset 3px 3px 8px #4a5a6d;
-    transform: translateY(1px);
-  }
-
-  #zero {
-    grid-column: span 2;
-  }
-
-  #equals {
-    grid-row: span 2;
-  }
-</style>
-
-<script type="text/babel">
-  const { useState } = React;
-
-  const buttons = [
-    { id: "clear", val: "AC" },
-    { id: "divide", val: "/" },
-    { id: "multiply", val: "*" },
-    { id: "subtract", val: "-" },
-    { id: "seven", val: "7" },
-    { id: "eight", val: "8" },
-    { id: "nine", val: "9" },
-    { id: "add", val: "+" },
-    { id: "four", val: "4" },
-    { id: "five", val: "5" },
-    { id: "six", val: "6" },
-    { id: "equals", val: "=" },
-    { id: "one", val: "1" },
-    { id: "two", val: "2" },
-    { id: "three", val: "3" },
-    { id: "zero", val: "0" },
-    { id: "decimal", val: "." },
-  ];
-
-  const App = () => {
-    const [expr, setExpr] = useState("0");
-    const [evaluated, setEvaluated] = useState(false);
-
-    const handleClick = (val) => {
-      if (val === "AC") {
-        setExpr("0");
-        setEvaluated(false);
-      } else if (val === "=") {
-        try {
-          const result = eval(expr.replace(/--/g, "+")).toFixed(10).replace(/\.?0+$/, "");
-          setExpr(result);
-          setEvaluated(true);
-        } catch {
-          setExpr("Error");
-          setEvaluated(true);
-        }
-      } else {
-        if (evaluated && /[0-9.]/.test(val)) {
-          setExpr(val);
+  <script type="text/babel">
+    const { useState } = React;
+  
+    const buttons = [
+      { id: "clear", val: "AC" },
+      { id: "divide", val: "/" },
+      { id: "multiply", val: "*" },
+      { id: "subtract", val: "-" },
+      { id: "seven", val: "7" },
+      { id: "eight", val: "8" },
+      { id: "nine", val: "9" },
+      { id: "add", val: "+" },
+      { id: "four", val: "4" },
+      { id: "five", val: "5" },
+      { id: "six", val: "6" },
+      { id: "equals", val: "=" },
+      { id: "one", val: "1" },
+      { id: "two", val: "2" },
+      { id: "three", val: "3" },
+      { id: "zero", val: "0" },
+      { id: "decimal", val: "." },
+    ];
+  
+    const App = () => {
+      const [expr, setExpr] = useState("0");
+      const [evaluated, setEvaluated] = useState(false);
+  
+      const handleClick = (val) => {
+        if (val === "AC") {
+          setExpr("0");
           setEvaluated(false);
-          return;
-        }
-
-        setEvaluated(false);
-        if (/[0-9]/.test(val)) {
-          setExpr(prev => (prev === "0" || /[=]/.test(prev)) ? val : prev + val);
-        } else if (val === ".") {
-          const parts = expr.split(/[\+\-\*\/]/);
-          const last = parts[parts.length - 1];
-          if (!last.includes(".")) setExpr(prev => prev + val);
+        } else if (val === "=") {
+          try {
+            const result = eval(expr.replace(/--/g, "+")).toFixed(10).replace(/\.?0+$/, "");
+            setExpr(result);
+            setEvaluated(true);
+          } catch {
+            setExpr("Error");
+            setEvaluated(true);
+          }
         } else {
-          setExpr(prev => {
-            if (/[+\-*/]$/.test(prev)) {
-              if (val === "-" && !prev.endsWith("-")) return prev + val;
-              return prev.replace(/[+\-*/]+$/, val);
-            } else {
-              return prev + val;
-            }
-          });
+          if (evaluated && /[0-9.]/.test(val)) {
+            setExpr(val);
+            setEvaluated(false);
+            return;
+          }
+  
+          setEvaluated(false);
+          if (/[0-9]/.test(val)) {
+            setExpr(prev => (prev === "0" || /[=]/.test(prev)) ? val : prev + val);
+          } else if (val === ".") {
+            const parts = expr.split(/[\+\-\*\/]/);
+            const last = parts[parts.length - 1];
+            if (!last.includes(".")) setExpr(prev => prev + val);
+          } else {
+            setExpr(prev => {
+              if (/[+\-*/]$/.test(prev)) {
+                if (val === "-" && !prev.endsWith("-")) return prev + val;
+                return prev.replace(/[+\-*/]+$/, val);
+              } else {
+                return prev + val;
+              }
+            });
+          }
         }
-      }
+      };
+  
+      return (
+        <div id="calculator">
+          <div id="display">{expr}</div>
+          {buttons.map(b => (
+            <button
+              key={b.id}
+              id={b.id}
+              onClick={() => handleClick(b.val)}
+            >
+              {b.val}
+            </button>
+          ))}
+        </div>
+      );
     };
-
-    return (
-      <div id="calculator">
-        <div id="display">{expr}</div>
-        {buttons.map(b => (
-          <button
-            key={b.id}
-            id={b.id}
-            onClick={() => handleClick(b.val)}
-          >
-            {b.val}
-          </button>
-        ))}
-      </div>
-    );
-  };
-
-  ReactDOM.render(<App />, document.getElementById("root"));
-</script>
+  
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</body>
+</html>
