@@ -54,7 +54,7 @@
 
     .pad-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
       gap: 22px;
       justify-items: center;
     }
@@ -62,6 +62,7 @@
     .drum-pad {
       width: 90px;
       height: 90px;
+      border-radius: 50%; /* circle */
       background: linear-gradient(145deg, #a9997f, #7f7054);
       border: 2.5px solid #5c4e2d;
       color: #f3ecd8; /* pale cream */
@@ -98,6 +99,17 @@
       color: #f3ecd8;
       transform: translateY(1px);
     }
+
+    @keyframes drum-hit {
+      0% { transform: scale(1); box-shadow: 0 0 0 #0000; }
+      50% { transform: scale(1.1); box-shadow: 0 0 25px rgba(255,255,255,0.3); }
+      100% { transform: scale(1); }
+    }
+    
+    .drum-pad.hit {
+      animation: drum-hit 0.2s ease-in-out;
+    }
+    
   </style>
 </head>
 <body>
@@ -118,7 +130,10 @@
       { key: "D", id: "Open-HH", src: "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3" },
       { key: "Z", id: "Kick-n'-Hat", src: "https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3" },
       { key: "X", id: "Kick", src: "https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3" },
-      { key: "C", id: "Closed-HH", src: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3" }
+      { key: "C", id: "Closed-HH", src: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3" },
+      { key: "1", id: "Shaker", src: "https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3" },
+      { key: "2", id: "Chord-1", src: "https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3" },
+      { key: "3", id: "Chord-2", src: "https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3" }
     ];
 
     function DrumMachine() {
@@ -126,9 +141,14 @@
 
       const playSound = (key) => {
         const audio = document.getElementById(key);
+        const pad = document.querySelector(`#${clips.find(c => c.key === key).id}`);
         if (audio) {
           audio.currentTime = 0;
           audio.play();
+          if (pad) {
+            pad.classList.add("hit");
+            setTimeout(() => pad.classList.remove("hit"), 200);
+          }
           const clip = clips.find(c => c.key === key);
           if (clip) setDisplay(clip.id);
         }
