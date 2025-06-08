@@ -124,6 +124,48 @@
     <div class="grid">
   
       <div class="card">
+        <h2>Quotes from me</h2>
+        <p>Random Quote Generator</p>
+        <p><strong>Date:</strong> June 5, 2025</p>
+        <a href="Quotes from me/">Open Project →</a>
+      </div>
+  
+      <div class="card">
+        <h2>Calculator</h2>
+        <p>Mini blue online calculatorr</p>
+        <p><strong>Date:</strong> June 5, 2025</p>
+        <a href="Calcu.html">Open Project →</a>
+      </div>  
+      
+      <div class="card">
+        <h2>Drum Machine</h2>
+        <p>Play drums with your keyboard</p>
+        <p><strong>Date:</strong> June 5, 2025</p>
+        <a href="Drum Machine.html">Open Project →</a>
+      </div>
+
+      <div class="card">
+        <h2>Markdown previewer</h2>
+        <p>A previewer of js markdowns, u can try it yourself too!</p>
+        <p><strong>Date:</strong> June 5, 2025</p>
+        <a href="Markdown previewer/">Open Project →</a>
+      </div>
+
+      <div class="card">
+        <h2>Pomodoro Clock</h2>
+        <p>A time to help us with focus sessions for studies or other self-help activities</p>
+        <p><strong>Date:</strong> June 5, 2025</p>
+        <a href="Pomodoro/">Open Project →</a>
+      </div>
+  
+      <div class="card">
+        <h2>My Time Table</h2>
+        <p>Aesthetic Timetable of my S7</p>
+        <p><strong>Date:</strong> Sep 30, 2024</p>
+        <a href="MyTimeTable.html">Open Project →</a>
+      </div>
+      
+      <div class="card">
         <h2>RSET Admission Form</h2>
         <p>Learning html forms at college, Applying in here gives 100% admission</p>
         <p><strong>Date:</strong> Sep 30, 2024</p>
@@ -135,48 +177,6 @@
         <p>Visual experiment with more form options</p>
         <p><strong>Date:</strong> Sep 30, 2024</p>
         <a href="HELL_FORM.html">Open Project →</a>
-      </div>
-  
-      <div class="card">
-        <h2>My Time Table</h2>
-        <p>Aesthetic Timetable of my S7</p>
-        <p><strong>Date:</strong> Sep 30, 2024</p>
-        <a href="MyTimeTable.html">Open Project →</a>
-      </div>
-  
-      <div class="card">
-        <h2>Quotes from me</h2>
-        <p>Random Quote Generator</p>
-        <p><strong>Date:</strong> June 5, 2025</p>
-        <a href="Quotes from me/">Open Project →</a>
-      </div>
-
-      <div class="card">
-        <h2>Markdown previewer</h2>
-        <p>A previewer of js markdowns, u can try it yourself too!</p>
-        <p><strong>Date:</strong> June 5, 2025</p>
-        <a href="Markdown previewer/">Open Project →</a>
-      </div>
-  
-      <div class="card">
-        <h2>Drum Machine</h2>
-        <p>Play drums with your keyboard</p>
-        <p><strong>Date:</strong> June 5, 2025</p>
-        <a href="Drum Machine.html">Open Project →</a>
-      </div>
-
-      <div class="card">
-        <h2>Calculator</h2>
-        <p>Mini blue online calculatorr</p>
-        <p><strong>Date:</strong> June 5, 2025</p>
-        <a href="Calcu.html">Open Project →</a>
-      </div>
-
-      <div class="card">
-        <h2>Pomodoro Clock</h2>
-        <p>A time to help us with focus sessions for studies or other self-help activities</p>
-        <p><strong>Date:</strong> June 5, 2025</p>
-        <a href="Pomodoro/">Open Project →</a>
       </div>
       
     </div>
@@ -192,30 +192,62 @@
       "#c76ec9", "#c78286", "#7e75c0", "#6390d2"
     ];
     
-    function styleCards() {
-      document.querySelectorAll('.card').forEach(card => {
-        const color = FunColors[Math.floor(Math.random() * FunColors.length)];
-        card.style.backgroundColor = color;
-        card.style.opacity = "0.85";
+    // function styleCards() {
+    //   document.querySelectorAll('.card').forEach(card => {
+    //     const color = FunColors[Math.floor(Math.random() * FunColors.length)];
+    //     card.style.backgroundColor = color;
+    //     card.style.opacity = "0.85";
     
-        card.addEventListener("mouseenter", () => {
-          card.style.opacity = "1";
-        });
-        card.addEventListener("mouseleave", () => {
-          card.style.opacity = "0.85";
-        });
-      });
-    }
+    //     card.addEventListener("mouseenter", () => {
+    //       card.style.opacity = "1";
+    //     });
+    //     card.addEventListener("mouseleave", () => {
+    //       card.style.opacity = "0.85";
+    //     });
+    //   });
+    // }
     
-    styleCards();
-    setInterval(styleCards, 5000);
+    // styleCards();
+    // setInterval(styleCards, 5000);
 
+    // window.addEventListener("pageshow", (event) => {
+    //   if (event.persisted) {
+    //     styleCards();
+    //   }
+    // });
+    function getRandomColor() {
+      return FunColors[Math.floor(Math.random() * FunColors.length)];
+    }
+  
+    function styleCardIndividually(card) {
+      const changeColor = () => {
+        card.style.backgroundColor = getRandomColor();
+        card.style.opacity = "0.85";
+      };
+  
+      changeColor(); // initial color
+  
+      card.addEventListener("mouseenter", () => {
+        card.style.opacity = "1";
+      });
+  
+      card.addEventListener("mouseleave", () => {
+        card.style.opacity = "0.85";
+      });
+  
+      // Each card gets its own unique interval (800–2500ms)
+      const intervalTime = Math.floor(Math.random() * 1700) + 800;
+      setInterval(changeColor, intervalTime);
+    }
+  
+    document.querySelectorAll('.card').forEach(styleCardIndividually);
+  
+    // Re-style on pageshow (back button in browser)
     window.addEventListener("pageshow", (event) => {
       if (event.persisted) {
-        styleCards();
+        document.querySelectorAll('.card').forEach(styleCardIndividually);
       }
     });
-    
   </script>
 </body>
 </html>
