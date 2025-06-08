@@ -26,7 +26,7 @@
       width: 420px;
       box-shadow: 0 8px 18px rgba(71, 86, 105, 0.3), inset 0 0 25px #c5ccd5;
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 12px;
     }
     
@@ -95,28 +95,28 @@
   
     const buttons = [
       { id: "clear", val: "AC" },
-      { id: "divide", val: "/" },
-      { id: "multiply", val: "*" },
-      { id: "subtract", val: "-" },
-      { id: "seven", val: "7" },
-      { id: "eight", val: "8" },
-      { id: "nine", val: "9" },
-      { id: "add", val: "+" },
-      { id: "four", val: "4" },
-      { id: "five", val: "5" },
-      { id: "six", val: "6" },
-      { id: "equals", val: "=" },
-      { id: "one", val: "1" },
-      { id: "two", val: "2" },
-      { id: "three", val: "3" },
-      { id: "zero", val: "0" },
-      { id: "decimal", val: "." },
       { id: "sqrt", val: "√" },
       { id: "square", val: "x²" },
       { id: "inverse", val: "1/x" },
+      { id: "divide", val: "/" },
+      { id: "seven", val: "7" },
+      { id: "eight", val: "8" },
+      { id: "nine", val: "9" },
+      { id: "multiply", val: "*" },
       { id: "sin", val: "sin" },
+      { id: "four", val: "4" },
+      { id: "five", val: "5" },
+      { id: "six", val: "6" },
+      { id: "subtract", val: "-" },
       { id: "cos", val: "cos" },
+      { id: "one", val: "1" },
+      { id: "two", val: "2" },
+      { id: "three", val: "3" },
+      { id: "add", val: "+" },
       { id: "tan", val: "tan" },
+      { id: "zero", val: "0" },
+      { id: "decimal", val: "." },
+      { id: "equals", val: "=" },
       { id: "log", val: "log" },
       { id: "ln", val: "ln" },
       { id: "exp", val: "e^x" },
@@ -125,83 +125,112 @@
       { id: "left-paren", val: "(" },
       { id: "right-paren", val: ")" }
     ];
-  
-    const App = () => {
-      const [expr, setExpr] = useState("0");
-      const [evaluated, setEvaluated] = useState(false);
-  
-      const handleClick = (val) => {
 
-        if (val === "π") {
-          setExpr(prev => prev + Math.PI.toFixed(10));
-        } else if (val === "e") {
-          setExpr(prev => prev + Math.E.toFixed(10));
-        } else if (val === "√") {
-          setExpr(prev => prev + "Math.sqrt(");
-        } else if (val === "x²") {
-          setExpr(prev => prev + "**2");
-        } else if (val === "1/x") {
-          setExpr(prev => `1/(${prev})`);
-        } else if (["sin", "cos", "tan", "log", "ln", "e^x"].includes(val)) {
-          const funcMap = {
-            sin: "Math.sin(",
-            cos: "Math.cos(",
-            tan: "Math.tan(",
-            log: "Math.log10(",
-            ln: "Math.log(",
-            "e^x": "Math.exp(",
-          };
-          setExpr(prev => prev + funcMap[val]);
-        } else if (val === "(" || val === ")") {
-          setExpr(prev => prev + val);
+    const handleClick = (val) => {
+      if (val === "AC") {
+        setExpr("0");
+        setEvaluated(false);
+        return;
+      }
+    
+      if (val === "=") {
+        try {
+          const result = eval(expr).toFixed(10).replace(/\.?0+$/, "");
+          setExpr(result);
+          setEvaluated(true);
+        } catch {
+          setExpr("Error");
+          setEvaluated(true);
         }
-
-        if (val === "AC") {
-          setExpr("0");
-          setEvaluated(false);
-        } else if (val === "=") {
-          try {
-            const result = eval(expr
-              .replace(/Math\.log10/g, 'Math.log10') // log base 10
-              .replace(/Math\.sqrt/g, 'Math.sqrt')
-              .replace(/Math\.sin/g, 'Math.sin')
-              .replace(/Math\.cos/g, 'Math.cos')
-              .replace(/Math\.tan/g, 'Math.tan')
-              .replace(/Math\.exp/g, 'Math.exp')
-              .replace(/Math\.log/g, 'Math.log')
-            ).toFixed(10).replace(/\.?0+$/, "");
-            setExpr(result);
-            setEvaluated(true);
-          } catch {
-            setExpr("Error");
-            setEvaluated(true);
+        return;
+      }
+    
+      // Apply immediate scientific functions
+      if (["√", "x²", "1/x", "sin", "cos", "tan", "log", "ln", "e^x"].includes(val)) {
+        try {
+          const value = eval(expr);
+          let result;
+          switch (val) {
+            case "√":
+              result = Math.sqrt(value);
+              break;
+            case "x²":
+              result = Math.pow(value, 2);
+              break;
+            case "1/x":
+              result = 1 / value;
+              break;
+            case "sin":
+              result = Math.sin(value);
+              break;
+            case "cos":
+              result = Math.cos(value);
+              break;
+            case "tan":
+              result = Math.tan(value);
+              break;
+            case "log":
+              result = Math.log10(value);
+              break;
+            case "ln":
+              result = Math.log(value);
+              break;
+            case "e^x":
+              result = Math.exp(value);
+              break;
           }
-        } else {
-          if (evaluated && /[0-9.]/.test(val)) {
-            setExpr(val);
-            setEvaluated(false);
-            return;
-          }
-
-          setEvaluated(false);
-          if (/[0-9]/.test(val)) {
-            setExpr(prev => (prev === "0" || /[=]/.test(prev)) ? val : prev + val);
-          } else if (val === ".") {
-            const parts = expr.split(/[\+\-\*\/]/);
-            const last = parts[parts.length - 1];
-            if (!last.includes(".")) setExpr(prev => prev + val);
+          setExpr(result.toFixed(10).replace(/\.?0+$/, ""));
+          setEvaluated(true);
+        } catch {
+          setExpr("Error");
+          setEvaluated(true);
+        }
+        return;
+      }
+    
+      // Handle constants
+      if (val === "π") {
+        setExpr(prev => (evaluated ? Math.PI.toFixed(10) : prev + Math.PI.toFixed(10)));
+        setEvaluated(false);
+        return;
+      }
+    
+      if (val === "e") {
+        setExpr(prev => (evaluated ? Math.E.toFixed(10) : prev + Math.E.toFixed(10)));
+        setEvaluated(false);
+        return;
+      }
+    
+      // Reset after evaluation if number or dot is entered
+      if (evaluated && /[0-9.]/.test(val)) {
+        setExpr(val);
+        setEvaluated(false);
+        return;
+      }
+    
+      // Handle numbers and operators
+      setEvaluated(false);
+    
+      if (/[0-9]/.test(val)) {
+        setExpr(prev => (prev === "0" ? val : prev + val));
+      } else if (val === ".") {
+        const parts = expr.split(/[\+\-\*\/]/);
+        const last = parts[parts.length - 1];
+        if (!last.includes(".")) setExpr(prev => prev + val);
+      } else if (val === "(" || val === ")") {
+        setExpr(prev => prev + val);
+      } else {
+        // Operators
+        setExpr(prev => {
+          if (/[+\-*/]$/.test(prev)) {
+            return val === "-" ? prev + val : prev.replace(/[+\-*/]+$/, val);
           } else {
-            setExpr(prev => {
-              if (/[+\-*/]$/.test(prev)) {
-                if (val === "-" && !prev.endsWith("-")) return prev + val;
-                return prev.replace(/[+\-*/]+$/, val);
-              } else {
-                return prev + val;
-              }
-            });
+            return prev + val;
           }
-        }
-      };
+        });
+      }
+    };
+
   
       return (
         <div id="calculator">
