@@ -23,10 +23,10 @@
       border: 2px solid #5c6b7c;
       border-radius: 20px;
       padding: 30px;
-      width: 340px;
+      width: 420px;
       box-shadow: 0 8px 18px rgba(71, 86, 105, 0.3), inset 0 0 25px #c5ccd5;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 12px;
     }
     
@@ -111,6 +111,19 @@
       { id: "three", val: "3" },
       { id: "zero", val: "0" },
       { id: "decimal", val: "." },
+      { id: "sqrt", val: "√" },
+      { id: "square", val: "x²" },
+      { id: "inverse", val: "1/x" },
+      { id: "sin", val: "sin" },
+      { id: "cos", val: "cos" },
+      { id: "tan", val: "tan" },
+      { id: "log", val: "log" },
+      { id: "ln", val: "ln" },
+      { id: "exp", val: "e^x" },
+      { id: "pi", val: "π" },
+      { id: "e", val: "e" },
+      { id: "left-paren", val: "(" },
+      { id: "right-paren", val: ")" 
     ];
   
     const App = () => {
@@ -118,12 +131,45 @@
       const [evaluated, setEvaluated] = useState(false);
   
       const handleClick = (val) => {
+
+        if (val === "π") {
+          setExpr(prev => prev + Math.PI.toFixed(10));
+        } else if (val === "e") {
+          setExpr(prev => prev + Math.E.toFixed(10));
+        } else if (val === "√") {
+          setExpr(prev => prev + "Math.sqrt(");
+        } else if (val === "x²") {
+          setExpr(prev => prev + "**2");
+        } else if (val === "1/x") {
+          setExpr(prev => `1/(${prev})`);
+        } else if (["sin", "cos", "tan", "log", "ln", "e^x"].includes(val)) {
+          const funcMap = {
+            sin: "Math.sin(",
+            cos: "Math.cos(",
+            tan: "Math.tan(",
+            log: "Math.log10(",
+            ln: "Math.log(",
+            "e^x": "Math.exp(",
+          };
+          setExpr(prev => prev + funcMap[val]);
+        } else if (val === "(" || val === ")") {
+          setExpr(prev => prev + val);
+        }
+
         if (val === "AC") {
           setExpr("0");
           setEvaluated(false);
         } else if (val === "=") {
           try {
-            const result = eval(expr.replace(/--/g, "+")).toFixed(10).replace(/\.?0+$/, "");
+            const result = eval(expr
+              .replace(/Math\.log10/g, 'Math.log10') // log base 10
+              .replace(/Math\.sqrt/g, 'Math.sqrt')
+              .replace(/Math\.sin/g, 'Math.sin')
+              .replace(/Math\.cos/g, 'Math.cos')
+              .replace(/Math\.tan/g, 'Math.tan')
+              .replace(/Math\.exp/g, 'Math.exp')
+              .replace(/Math\.log/g, 'Math.log')
+            ).toFixed(10).replace(/\.?0+$/, "");
             setExpr(result);
             setEvaluated(true);
           } catch {
@@ -136,7 +182,7 @@
             setEvaluated(false);
             return;
           }
-  
+
           setEvaluated(false);
           if (/[0-9]/.test(val)) {
             setExpr(prev => (prev === "0" || /[=]/.test(prev)) ? val : prev + val);
