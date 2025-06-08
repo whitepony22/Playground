@@ -76,14 +76,14 @@
       box-shadow: inset 3px 3px 8px #4a5a6d;
       transform: translateY(1px);
     }
-    
+/*     
     #zero {
       grid-column: span 2;
     }
     
     #equals {
       grid-row: span 2;
-    }
+    } */
   </style>
 </head>
 
@@ -98,42 +98,41 @@
       const [evaluated, setEvaluated] = React.useState(false);
     
       const buttons = [
-        { id: "clear", val: "AC" },
-        { id: "backspace", val: "⌫" },
         { id: "left-paren", val: "(" },
         { id: "right-paren", val: ")" },
         { id: "divide", val: "/" },
-      
+        { id: "clear", val: "AC", style: { gridRow: "span 2" } },
+        { id: "backspace", val: "DEL", style: { gridRow: "span 2" } },
+        
         { id: "seven", val: "7" },
         { id: "eight", val: "8" },
         { id: "nine", val: "9" },
         { id: "multiply", val: "*" },
-        { id: "sqrt", val: "√" },
+        { id: "sin", val: "sin" },
       
         { id: "four", val: "4" },
         { id: "five", val: "5" },
         { id: "six", val: "6" },
         { id: "subtract", val: "-" },
-        { id: "square", val: "x²" },
+        { id: "cos", val: "cos" },
       
         { id: "one", val: "1" },
         { id: "two", val: "2" },
         { id: "three", val: "3" },
         { id: "add", val: "+" },
-        { id: "inverse", val: "1/x" },
-      
-        { id: "zero", val: "0" },
-        { id: "decimal", val: "." },
-        { id: "equals", val: "=" },
-        { id: "pi", val: "π" },
-        { id: "e", val: "e" },
-      
-        { id: "sin", val: "sin" },
-        { id: "cos", val: "cos" },
         { id: "tan", val: "tan" },
+      
+        { id: "zero", val: "0", style: { gridColumn: "span 2" } },
+        { id: "decimal", val: "." },
+        { id: "equals", val: "=", style: { gridRow: "span 2" } },
         { id: "log", val: "log" },
         { id: "ln", val: "ln" },
-        { id: "exp", val: "e^x" }
+      
+        { id: "exp", val: "e^x" },
+        { id: "pi", val: "π" },
+        { id: "e", val: "e" },
+        { id: "square", val: "x²" },
+        { id: "sqrt", val: "√" },
       ];
     
       const handleClick = (val) => {
@@ -143,7 +142,7 @@
           return;
         }
 
-        if (val === "⌫") {
+        if (val === "DEL") {
           if (evaluated || expr === "Error" || expr.length <= 1) {
             setExpr("0");
           } else {
@@ -251,7 +250,7 @@
           Enter: "=",
           "=": "=",
           Escape: "AC",
-          Backspace: "⌫",
+          Backspace: "DEL",
           "+": "+",
           "-": "-",
           "*": "*",
@@ -278,6 +277,7 @@
             <button
               key={b.id}
               id={b.id}
+              style={b.style}
               onClick={() => handleClick(b.val)}
             >
               {b.val}
