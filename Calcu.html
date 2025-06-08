@@ -99,40 +99,56 @@
     
       const buttons = [
         { id: "clear", val: "AC" },
-        { id: "sqrt", val: "√" },
-        { id: "square", val: "x²" },
-        { id: "inverse", val: "1/x" },
+        { id: "backspace", val: "⌫" },
+        { id: "left-paren", val: "(" },
+        { id: "right-paren", val: ")" },
         { id: "divide", val: "/" },
+      
         { id: "seven", val: "7" },
         { id: "eight", val: "8" },
         { id: "nine", val: "9" },
         { id: "multiply", val: "*" },
-        { id: "sin", val: "sin" },
+        { id: "sqrt", val: "√" },
+      
         { id: "four", val: "4" },
         { id: "five", val: "5" },
         { id: "six", val: "6" },
         { id: "subtract", val: "-" },
-        { id: "cos", val: "cos" },
+        { id: "square", val: "x²" },
+      
         { id: "one", val: "1" },
         { id: "two", val: "2" },
         { id: "three", val: "3" },
         { id: "add", val: "+" },
-        { id: "tan", val: "tan" },
+        { id: "inverse", val: "1/x" },
+      
         { id: "zero", val: "0" },
         { id: "decimal", val: "." },
         { id: "equals", val: "=" },
-        { id: "log", val: "log" },
-        { id: "ln", val: "ln" },
-        { id: "exp", val: "e^x" },
         { id: "pi", val: "π" },
         { id: "e", val: "e" },
-        { id: "left-paren", val: "(" },
-        { id: "right-paren", val: ")" }
+      
+        { id: "sin", val: "sin" },
+        { id: "cos", val: "cos" },
+        { id: "tan", val: "tan" },
+        { id: "log", val: "log" },
+        { id: "ln", val: "ln" },
+        { id: "exp", val: "e^x" }
       ];
     
       const handleClick = (val) => {
         if (val === "AC") {
           setExpr("0");
+          setEvaluated(false);
+          return;
+        }
+
+        if (val === "⌫") {
+          if (evaluated || expr === "Error" || expr.length <= 1) {
+            setExpr("0");
+          } else {
+            setExpr(prev => prev.slice(0, -1));
+          }
           setEvaluated(false);
           return;
         }
@@ -229,7 +245,32 @@
           });
         }
       };
-    
+
+      React.useEffect(() => {
+        const keyMap = {
+          Enter: "=",
+          "=": "=",
+          Escape: "AC",
+          Backspace: "⌫",
+          "+": "+",
+          "-": "-",
+          "*": "*",
+          "/": "/",
+          ".": ".",
+          "(": "(",
+          ")": ")"
+        };
+      
+        const handleKey = (e) => {
+          const key = e.key;
+          if (/[0-9]/.test(key)) handleClick(key);
+          else if (keyMap[key]) handleClick(keyMap[key]);
+        };
+      
+        window.addEventListener("keydown", handleKey);
+        return () => window.removeEventListener("keydown", handleKey);
+      }, []);
+            
       return (
         <div id="calculator">
           <div id="display">{expr}</div>
